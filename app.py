@@ -29,7 +29,7 @@ st.set_page_config(page_icon="✒️", page_title="Not a Poet")
 @st.cache_resource()
 def get_llm_connection():
     """Create a connector using credentials filled in Streamlit secrets"""
-    return Cohere(st.secrets["COHERE_API_KEY"]), OpenAI(api_key=st.secrets["OPENAI_API_KEY"]))
+    return Cohere(st.secrets["COHERE_API_KEY"]), OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 
 co, oai = get_llm_connection()
