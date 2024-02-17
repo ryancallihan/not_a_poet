@@ -8,23 +8,29 @@ from src.openai import OpenAI
 
 st.set_page_config(page_icon="✒️", page_title="Not a Poet")
 
-parser = argparse.ArgumentParser(description='This app writes poems, but is not a poet.')
+# parser = argparse.ArgumentParser(description='This app writes poems, but is not a poet.')
 
-parser.add_argument("--cohere_api_key", help="Add Cohere API key")
-parser.add_argument("--openai_api_key", help="Add OpenAI API key")
+# parser.add_argument("--cohere_api_key", help="Add Cohere API key")
+# parser.add_argument("--openai_api_key", help="Add OpenAI API key")
 
-try:
-    args = parser.parse_args()
-except SystemExit as e:
-    # This exception will be raised if --help or invalid command line arguments
-    # are used. Currently streamlit prevents the program from exiting normally
-    # so we have to do a hard exit.
-    os._exit(e.code)
+# try:
+#     args = parser.parse_args()
+# except SystemExit as e:
+#     # This exception will be raised if --help or invalid command line arguments
+#     # are used. Currently streamlit prevents the program from exiting normally
+#     # so we have to do a hard exit.
+#     os._exit(e.code)
     
+# @st.cache_resource()
+# def get_llm_connection():
+#     """Create a connector using credentials filled in Streamlit secrets"""
+#     return Cohere(args.cohere_api_key), OpenAI(api_key=args.openai_api_key)
+
 @st.cache_resource()
 def get_llm_connection():
     """Create a connector using credentials filled in Streamlit secrets"""
-    return Cohere(args.cohere_api_key), OpenAI(api_key=args.openai_api_key)
+    return Cohere(st.secrets["COHERE_API_KEY"]), OpenAI(api_key=st.secrets["OPENAI_API_KEY"]))
+
 
 co, oai = get_llm_connection()
 
